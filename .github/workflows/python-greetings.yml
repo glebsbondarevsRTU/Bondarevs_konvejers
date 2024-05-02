@@ -32,10 +32,16 @@ jobs:
       run: echo "Hello ${{ inputs.name }}"
 
   install-pip-deps:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Install Python dependencies
-        run: |
-            sudo pip3 install -r python-greetings/requirements.txt
+    - name: Checkout python-greetings repository
+      uses: actions/checkout@v3.5.2
+      with:
+        repository: mtararujs/python-greetings
+        path: python-greetings
+        ref: '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'
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Install Python dependencies
+      run: sudo pip3 install -r python-greetings/requirements.txt
+    - name: Install PM2
+      run: sudo npm install -g pm2
