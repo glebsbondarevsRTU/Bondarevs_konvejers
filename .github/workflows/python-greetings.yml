@@ -36,7 +36,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r working directory:python greetings
+            sudo pip3 install -r python-greetings/requirements.txt
