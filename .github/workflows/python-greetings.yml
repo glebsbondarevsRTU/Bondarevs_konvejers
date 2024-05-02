@@ -38,6 +38,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         run: |
-          cd actions-runner
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r python-greetings/requirements.txt
