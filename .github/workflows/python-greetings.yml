@@ -21,11 +21,6 @@ jobs:
           path: python-greetings
           ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Clone python-greetings repository
-        uses: actions/checkout@v3.5.2
-        with:
-          repository: mtararujs/python-greetings  # Norādīt repozitoriju, no kura veikt klonēšanu
-          path: python-greetings  # Norādīt direktoriju, kurā vēlaties veikt klonēšanu
       - name: Install PM2
         run: npm install pm2 -g
       - name: Install dependencies
@@ -48,8 +43,9 @@ jobs:
         run: pip install -r C:\Users\Gleb\AppData\Local\Programs\Python\Python312\requirements.txt
       - name: Deploy to Development Environment
         run: |
-          pm2 delete greetings-app-dev; $true
-          pm2 start app.py --name greetings-app-dev --interpreter python3 -- --port 7001
+          pm2 delete greetings-app-dev & set"errorlevel=0"
+          pm2 delete greetings-app-div & EXIT /B 0)
+
         
   tests-on-dev:
     needs: deploy-to-dev
