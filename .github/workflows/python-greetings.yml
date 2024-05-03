@@ -43,7 +43,10 @@ jobs:
         run: pip install -r C:\Users\Gleb\AppData\Local\Programs\Python\Python312\requirements.txt
       - name: Deploy to Development Environment
         run: |
+          pm2 delete greetings-app-dev
           pm2 start app.py --name greetings-app-dev -- port=7001
+
+          working-directory: ./python-greetings
         
   tests-on-dev:
     needs: deploy-to-dev
