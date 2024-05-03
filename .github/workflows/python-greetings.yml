@@ -24,7 +24,7 @@ jobs:
       - name: Install PM2
         run: npm install pm2 -g
       - name: Install dependencies
-        run: pip3 install -r requirements.txt
+        run: pip install -r requirements.txt
           
   deploy-to-dev:
     needs: install-pip-deps
