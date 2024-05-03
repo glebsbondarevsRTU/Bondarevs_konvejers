@@ -11,27 +11,54 @@ on:
 jobs:
   install-pip-deps:
     runs-on: self-hosted
+    steps:
+      - name: Display message
+        run: echo "Installing all required dependencies."
   deploy-to-dev:
     needs: install-pip-deps
     runs-on: self-hosted
+    steps:
+      - name: Display message
+        run: echo "Installing all required dependencies."
   tests-on-dev:
     needs: deploy-to-dev
     runs-on: self-hosted
+    steps:
+      - name: Display message
+        run: echo "Installing all required dependencies."
   deploy-to-staging:
     needs: tests-on-dev
     runs-on: self-hosted
+    steps:
+      - name: Display message
+        run: echo "Installing all required dependencies."
   tests-on-staging:
     needs: deploy-to-staging
     runs-on: self-hosted
+    steps:
+      - name: Display message
+        run: echo "Installing all required dependencies."
   deploy-to-preprod:
     needs: tests-on-staging
     runs-on: self-hosted
+    steps:
+      - name: Display message
+        run: echo "Installing all required dependencies."
   tests-on-preprod:
     needs: deploy-to-preprod
     runs-on: self-hosted
+    steps:
+      - name: Display message
+        run: echo "Installing all required dependencies."
   deploy-to-prod:
     needs: tests-on-preprod
     runs-on: self-hosted
+    steps:
+      - name: Display message
+        run: echo "Installing all required dependencies."
   tests-on-prod:
     needs: deploy-to-prod
     runs-on: self-hosted
+    steps:
+      - name: Display message
+        run: echo "Installing all required dependencies."
