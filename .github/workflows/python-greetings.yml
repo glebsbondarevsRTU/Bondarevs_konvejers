@@ -1,4 +1,4 @@
-name: Python Application Delivery Pipeline
+name: Bondarevs Workflow
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
   install-pip-deps:
     runs-on: self-hosted
     steps:
-    - name: Checkout python-greetings repository
+    - name: Checkout greetings repository
       uses: actions/checkout@v3.5.2
       with:
         repository: mtararujs/python-greetings
@@ -21,3 +21,5 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Install PM2
       run: npm install pm2 -g
+    - name: Install Python dependencies
+      run: pip install -r requirements.txt 
