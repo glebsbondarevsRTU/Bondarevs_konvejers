@@ -11,35 +11,27 @@ on:
 jobs:
   install-pip-deps:
     runs-on: self-hosted
-    steps:
-    - name: Checkout python-greetings repository
-      uses: actions/checkout@v3.5.2
-      with:
-        repository: mtararujs/python-greetings
-        path: python-greetings
-        ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
-        token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install Python dependencies
-      run: sudo pip3 install -r python-greetings/requirements.txt
-    - name: Install PM2
-      run: sudo npm install -g pm2
-
   deploy-to-dev:
     needs: install-pip-deps
     runs-on: self-hosted
-    steps:
-    - name: Checkout python-greetings repository
-      uses: actions/checkout@v3.5.2
-      with:
-        repository: mtararujs/python-greetings
-        path: python-greetings
-        ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
-        fetch-depth: 0
-    - name: Install Python dependencies
-      run: sudo pip3 install -r python-greetings/requirements.txt
-    - name: Deploy to Development Environment
-      run: |
-        pm2 delete greetings-app-dev || true
-        pm2 start app.py --name greetings-app-dev --interpreter python3 -- --port 7001
-  
-  
+  tests-on-dev:
+    needs: deploy-to-dev
+    runs-on: self-hosted
+  deploy-to-staging:
+    needs: tests-on-dev
+    runs-on: self-hosted
+  tests-on-staging:
+    needs: deploy-to-staging
+    runs-on: self-hosted
+  deploy-to-preprod:
+    needs: tests-on-staging
+    runs-on: self-hosted
+  tests-on-preprod:
+    needs: deploy-to-preprod
+    runs-on: self-hosted
+  deploy-to-prod:
+    needs: tests-on-preprod
+    runs-on: self-hosted
+  tests-on-prod:
+    needs: deploy-to-prod
+    runs-on: self-hosted
