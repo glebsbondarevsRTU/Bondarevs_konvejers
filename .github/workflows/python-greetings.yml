@@ -12,14 +12,34 @@ jobs:
   install-pip-deps:
     runs-on: self-hosted
     steps:
-    - name: Checkout greetings repository
+    - name: Checkout python-greetings repository
       uses: actions/checkout@v3.5.2
       with:
         repository: mtararujs/python-greetings
         path: python-greetings
         ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
         token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install PM2
-      run: npm install pm2 -g
     - name: Install Python dependencies
-      run: pip3 install -r requirements.txt 
+      run: sudo pip3 install -r python-greetings/requirements.txt
+    - name: Install PM2
+      run: sudo npm install -g pm2
+
+  deploy-to-dev:
+    needs: install-pip-deps
+    runs-on: self-hosted
+    steps:
+    - name: Checkout python-greetings repository
+      uses: actions/checkout@v3.5.2
+      with:
+        repository: mtararujs/python-greetings
+        path: python-greetings
+        ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
+        fetch-depth: 0
+    - name: Install Python dependencies
+      run: sudo pip3 install -r python-greetings/requirements.txt
+    - name: Deploy to Development Environment
+      run: |
+        pm2 delete greetings-app-dev || true
+        pm2 start app.py --name greetings-app-dev --interpreter python3 -- --port 7001
+  
+  
