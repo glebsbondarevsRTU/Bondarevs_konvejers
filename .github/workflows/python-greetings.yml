@@ -11,8 +11,10 @@ on:
 jobs:
   install-pip-deps:
     runs-on: self-hosted
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - name: Display message
+      - id: step1
         run: echo "Installing all required dependencies."
   deploy-to-dev:
     needs: install-pip-deps
