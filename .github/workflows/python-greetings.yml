@@ -19,7 +19,5 @@ jobs:
         path: python-greetings
         ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
         token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install Python dependencies
-      run: pip3 install -r python-greetings/requirements.txt
     - name: Install PM2
       run: npm install pm2 -g
