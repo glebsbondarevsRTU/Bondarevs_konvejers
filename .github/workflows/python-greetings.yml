@@ -11,80 +11,62 @@ on:
 jobs:
   install-pip-deps:
     runs-on: self-hosted
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - id: step1
+      - name: Display message
         run: echo "Installing all required dependencies.."
         
   deploy-to-dev:
     needs: install-pip-deps
     runs-on: self-hosted
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - id: step1
+      - name: Display message
         run: echo "Deploying to Development environment.."
         
   tests-on-dev:
     needs: deploy-to-dev
     runs-on: self-hosted
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - id: step1
+      - name: Display message
         run: echo "Running tests on Development environment.."
         
   deploy-to-staging:
     needs: tests-on-dev
     runs-on: self-hosted
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - id: step1
+      - name: Display message
         run: echo "Deploying to Staging environment.."
         
   tests-on-staging:
     needs: deploy-to-staging
     runs-on: self-hosted
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - id: step1
+      - name: Display message
         run: echo "Running tests on Staging environment.."
         
   deploy-to-preprod:
     needs: tests-on-staging
     runs-on: self-hosted
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - id: step1
+      - name: Display message
         run: echo "Deploying to Pre-Production environment.."
         
   tests-on-preprod:
     needs: deploy-to-preprod
     runs-on: self-hosted
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - id: step1
+      - name: Display message
         run: echo "Running tests on Pre-Production environment.."
         
   deploy-to-prod:
     needs: tests-on-preprod
     runs-on: self-hosted
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - id: step1
+      - name: Display message
         run: echo "Deploying to Production environment.."
         
   tests-on-prod:
     needs: deploy-to-prod
     runs-on: self-hosted
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
-      - id: step1
+      - name: Display message
         run: echo "Running tests on Production environment.."
