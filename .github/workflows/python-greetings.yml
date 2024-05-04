@@ -65,9 +65,10 @@ jobs:
           path: course-js-api-framework
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: Setup tests
         run: |
-          npm --cwd ./python-greetings install
+          npm --cwd ./course-js-api-framework install
         
   deploy-to-staging:
     needs: tests-on-dev
