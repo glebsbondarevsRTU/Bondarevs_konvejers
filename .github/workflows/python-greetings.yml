@@ -39,13 +39,11 @@ jobs:
           path: python-greetings
           ref: '5702da3ed2585370912d657f3845ad1a444665ad'
           fetch-depth: 0
-      - name: Install dependencies
-        run: pip install -r C:\Users\Gleb\AppData\Local\Programs\Python\Python312\requirements.txt
       - name: Deploy to Development Environment
         run: |
           pm2 delete greetings-app-dev; pm2 set env:errorlevel 0
           pm2 start app.py --name greetings-app-dev --cwd ./python-greetings -- -- 7001
-      - name: Check server status
+      - name: Checking server status
         run: |
           pm2 status
         working-directory: ./python-greetings
@@ -68,7 +66,7 @@ jobs:
           npm --cwd ./course-js-api-framework cache clean --force
           npm --cwd ./course-js-api-framework install mocha --no-save
           npm --cwd ./course-js-api-framework install
-      - name: Run tests
+      - name: Runing tests
         run: |
           npm --cwd ./course-js-api-framework run greetings greetings_dev
         
@@ -107,15 +105,9 @@ jobs:
           npm --cwd ./course-js-api-framework cache clean --force
           npm --cwd ./course-js-api-framework install mocha --no-save
           npm --cwd ./course-js-api-framework install
-      - name: Run tests
+      - name: Runing tests
         run: |
           npm --cwd ./course-js-api-framework run greetings greetings_stg
-
-
-
-
-
-
         
   deploy-to-preprod:
     needs: tests-on-staging
@@ -151,17 +143,10 @@ jobs:
         run: |
           npm --cwd ./course-js-api-framework cache clean --force
           npm --cwd ./course-js-api-framework install mocha --no-save
-          export NODE_ENV=greetings_prepod
           npm --cwd ./course-js-api-framework install
-      - name: Run tests
+      - name: Runing tests
         run: |
-          npm --cwd ./course-js-api-framework run greetings greetings_prepod
-
-
-
-
-
-          
+          npm --cwd ./course-js-api-framework run greetings greetings_prepod   
         
   deploy-to-prod:
     needs: tests-on-preprod
@@ -197,8 +182,7 @@ jobs:
         run: |
           npm --cwd ./course-js-api-framework cache clean --force
           npm --cwd ./course-js-api-framework install mocha --no-save
-          export NODE_ENV=greetings_prod
           npm --cwd ./course-js-api-framework install
-      - name: Run tests
+      - name: Runing tests
         run: |
           npm --cwd ./course-js-api-framework run greetings greetings_prod
