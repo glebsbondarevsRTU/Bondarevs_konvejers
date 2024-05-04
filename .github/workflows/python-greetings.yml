@@ -67,9 +67,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup tests
         run: |
-          working-directory: ./course-js-api-framework
-          chown -R $(whoami) ~/.npm
-          npm cache clean --force
           npm install mocha --no-save
           npm install
         
