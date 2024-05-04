@@ -43,7 +43,13 @@ jobs:
         run: pip install -r C:\Users\Gleb\AppData\Local\Programs\Python\Python312\requirements.txt
       - name: Deploy to Development Environment
         run: |
-          pm2 delete greetings-app-dev; $errorlevel=0
+          try {
+            pm2 delete greetings-app-dev -s
+          } catch {
+            Write-Host "Failed to delete process."
+          }
+          $errorlevel=0
+
         
   tests-on-dev:
     needs: deploy-to-dev
