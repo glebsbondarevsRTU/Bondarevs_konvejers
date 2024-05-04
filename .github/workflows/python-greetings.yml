@@ -43,8 +43,7 @@ jobs:
         run: pip install -r C:\Users\Gleb\AppData\Local\Programs\Python\Python312\requirements.txt
       - name: Deploy to Development Environment
         run: |
-          working-directory: ./python-greetings
-          pm2 start app.py --name greetings-app-dev --port 7001
+          pm2 start app.py --name myapp --cwd ./python-greetings --port 7001
 
         
   tests-on-dev:
