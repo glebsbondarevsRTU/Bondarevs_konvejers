@@ -68,6 +68,8 @@ jobs:
       
       - name: Setup tests
         run: |
+          npm --cwd ./course-js-api-framework cache clean --force
+          npm --cwd ./course-js-api-framework install mocha --no-save
           npm --cwd ./course-js-api-framework install
         
   deploy-to-staging:
