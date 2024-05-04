@@ -87,7 +87,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy to Staging Environment
         run: |
-          pm2 delete greetings-app-dev; pm2 set env:errorlevel 0
+          pm2 delete greetings-app-staging; pm2 set env:errorlevel 0
           pm2 start app.py --name greetings-app-staging --cwd ./python-greetings -- -- 7002
         
   tests-on-staging:
@@ -106,6 +106,7 @@ jobs:
         run: |
           npm --cwd ./course-js-api-framework cache clean --force
           npm --cwd ./course-js-api-framework install mocha --no-save
+          export NODE_ENV=greetings_stg
           npm --cwd ./course-js-api-framework install
       - name: Run tests
         run: |
@@ -123,26 +124,45 @@ jobs:
     steps:
       - name: Display message
         run: echo "Deploying to Pre-Production environment.."
-      - name: Checkout python-greetings repository
+      - name: Checkout greetings repository
         uses: actions/checkout@v3.5.2
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
-          ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
+          ref: '5702da3ed2585370912d657f3845ad1a444665ad'
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to Pre-production Environment
+        run: |
+          pm2 delete greetings-app-preprod; pm2 set env:errorlevel 0
+          pm2 start app.py --name greetings-app-preprod --cwd ./python-greetings -- -- 7003
         
   tests-on-preprod:
     needs: deploy-to-preprod
     runs-on: self-hosted
     steps:
       - name: Display message
-        run: echo "Running tests on Pre-Production environment.."
+        run: echo "Running tests on Prepod environment.."
       - name: Checkout course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
           repository: mtararujs/course-js-api-framework
           path: course-js-api-framework
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup tests
+        run: |
+          npm --cwd ./course-js-api-framework cache clean --force
+          npm --cwd ./course-js-api-framework install mocha --no-save
+          export NODE_ENV=greetings_prepod
+          npm --cwd ./course-js-api-framework install
+      - name: Run tests
+        run: |
+          npm --cwd ./course-js-api-framework run greetings greetings_prepod
+
+
+
+
+
+          
         
   deploy-to-prod:
     needs: tests-on-preprod
@@ -150,13 +170,17 @@ jobs:
     steps:
       - name: Display message
         run: echo "Deploying to Production environment.."
-      - name: Checkout python-greetings repository
+      - name: Checkout greetings repository
         uses: actions/checkout@v3.5.2
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
-          ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
+          ref: '5702da3ed2585370912d657f3845ad1a444665ad'
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to Production Environment
+        run: |
+          pm2 delete greetings-app-prod; pm2 set env:errorlevel 0
+          pm2 start app.py --name greetings-app-prod --cwd ./python-greetings -- -- 7004
         
   tests-on-prod:
     needs: deploy-to-prod
@@ -170,3 +194,12 @@ jobs:
           repository: mtararujs/course-js-api-framework
           path: course-js-api-framework
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup tests
+        run: |
+          npm --cwd ./course-js-api-framework cache clean --force
+          npm --cwd ./course-js-api-framework install mocha --no-save
+          export NODE_ENV=greetings_prod
+          npm --cwd ./course-js-api-framework install
+      - name: Run tests
+        run: |
+          npm --cwd ./course-js-api-framework run greetings greetings_prod
