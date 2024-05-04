@@ -41,6 +41,9 @@ jobs:
           fetch-depth: 0
       - name: Install dependencies
         run: pip install -r C:\Users\Gleb\AppData\Local\Programs\Python\Python312\requirements.txt
+      - name: Deploy to Development Environment
+        run: |
+          pm2 delete greetings-app-dev; $errorlevel=0
         
   tests-on-dev:
     needs: deploy-to-dev
