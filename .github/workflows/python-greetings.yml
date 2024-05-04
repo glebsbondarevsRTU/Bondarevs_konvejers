@@ -19,7 +19,7 @@ jobs:
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
-          ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
+          ref: 'a07439908a5bf5832b16178e272c07247e961d66'
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install PM2
         run: npm install pm2 -g
@@ -37,18 +37,14 @@ jobs:
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
-          ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
+          ref: 'a07439908a5bf5832b16178e272c07247e961d66'
           fetch-depth: 0
       - name: Install dependencies
         run: pip install -r C:\Users\Gleb\AppData\Local\Programs\Python\Python312\requirements.txt
       - name: Deploy to Development Environment
         run: |
-          try {
-            pm2 delete greetings-app-dev -s
-          } catch {
-            Write-Host "Failed to delete process."
-          }
-          $errorlevel=0
+          pm2 start app.py --name greetings-app-dev --interpreter python3 -- --port 7001
+          working-directory: ./python-greetings
 
         
   tests-on-dev:
