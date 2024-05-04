@@ -19,7 +19,7 @@ jobs:
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
-          ref: 'a07439908a5bf5832b16178e272c07247e961d66'
+          ref: 'eb3e859152a2da55751c022eb010c12c141c9845'
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install PM2
         run: npm install pm2 -g
@@ -37,7 +37,7 @@ jobs:
         with:
           repository: mtararujs/python-greetings
           path: python-greetings
-          ref: 'a07439908a5bf5832b16178e272c07247e961d66'
+          ref: '5702da3ed2585370912d657f3845ad1a444665ad'
           fetch-depth: 0
       - name: Install dependencies
         run: pip install -r C:\Users\Gleb\AppData\Local\Programs\Python\Python312\requirements.txt
