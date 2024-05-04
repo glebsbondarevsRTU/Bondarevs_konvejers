@@ -106,7 +106,6 @@ jobs:
         run: |
           npm --cwd ./course-js-api-framework cache clean --force
           npm --cwd ./course-js-api-framework install mocha --no-save
-          export NODE_ENV=greetings_stg
           npm --cwd ./course-js-api-framework install
       - name: Run tests
         run: |
