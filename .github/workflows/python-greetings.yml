@@ -43,6 +43,7 @@ jobs:
         run: pip install -r C:\Users\Gleb\AppData\Local\Programs\Python\Python312\requirements.txt
       - name: Deploy to Development Environment
         run: |
+          pm2 delete greetings-app-dev; pm2 set env:errorlevel 0
           pm2 start app.py --name greetings-app-dev --cwd ./python-greetings -- -- 7001
 
         
