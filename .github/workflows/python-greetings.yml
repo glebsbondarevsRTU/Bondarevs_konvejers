@@ -67,7 +67,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup tests
         run: |
-          npm install mocha --no-save
           npm install
         
   deploy-to-staging:
