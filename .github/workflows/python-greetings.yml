@@ -71,8 +71,6 @@ jobs:
           npm --cwd ./course-js-api-framework install
       - name: Run tests
         run: |
-          export NODE_ENV=greetings_dev
-          echo "Environment: $NODE_ENV"
           npm --cwd ./course-js-api-framework run greetings greetings_dev
         
   deploy-to-staging:
