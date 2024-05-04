@@ -45,7 +45,6 @@ jobs:
         run: |
           pm2 delete greetings-app-dev; pm2 set env:errorlevel 0
           pm2 start app.py --name greetings-app-dev --cwd ./python-greetings -- -- 7001
-
       - name: Check server status
         run: |
           pm2 status
@@ -65,12 +64,16 @@ jobs:
           path: course-js-api-framework
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-      
       - name: Setup tests
         run: |
           npm --cwd ./course-js-api-framework cache clean --force
           npm --cwd ./course-js-api-framework install mocha --no-save
           npm --cwd ./course-js-api-framework install
+      - name: Run tests
+        run: |
+          export NODE_ENV=greetings_dev
+          echo "Environment: $NODE_ENV"
+          npm --cwd ./course-js-api-framework run greetings greetings_dev
         
   deploy-to-staging:
     needs: tests-on-dev
